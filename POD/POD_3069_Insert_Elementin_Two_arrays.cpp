@@ -2,33 +2,38 @@
 #include<vector>
 using namespace std ;
 
-class solution{
-    public :
-       vector<int>inserElement(vector<int>&nums){
-            int i = 0;
-            int j = 1;
+class Solution {
+public:
+    vector<int> resultArray(vector<int>& nums) {
 
-            if(nums.size()==2){
-                return nums;
+        vector<int> arr1;
+        vector<int> arr2;
+
+        arr1.push_back(nums[0]);
+        arr2.push_back(nums[1]);
+
+        for(int i = 2; i < nums.size(); i++) {
+
+            if(arr1.back() > arr2.back()) {
+                arr1.push_back(nums[i]);
+            } 
+            else {
+                arr2.push_back(nums[i]);
             }
+        }
 
-            while(j <nums.size()-1){
-                if(nums[i] >nums[j]){
-                    swap(nums[j],nums[j+1]);
-                    j++;
-                    i++;
-                }else{
-                    j++;
-                }
-            }
+        vector<int> result = arr1;
 
-            return nums ;
-       }
+        for(int x : arr2) {
+            result.push_back(x);
+        }
+
+        return result;
+    }
 };
 
-
 int main(){
-    solution s;
+    Solution s;
     int n;
     cin>>n;
     vector<int>nums(n);
@@ -36,7 +41,7 @@ int main(){
         cin>>nums[i];
     }
 
-    vector<int>ans = s.inserElement(nums);
+    vector<int>ans = s.resultArray(nums);
     for(int i =0;i<ans.size();i++){
         cout<<ans[i]<<" ";
     }
